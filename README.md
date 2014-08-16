@@ -6,6 +6,7 @@ datastructures.py
 Contents
 --------
 
+```
   datastructures.py    __ Main Script
 
   example/..           __ Example: ImpulseTracker IT File Format
@@ -14,7 +15,7 @@ Contents
           it_file.py   __ Sample Python3 script that reads IT files.
           it_file.h    __ Generated C header for IT file data structures.
           it_file.c    __ Generated C implementations.
-
+```
 
 
 datastructures.py --help
