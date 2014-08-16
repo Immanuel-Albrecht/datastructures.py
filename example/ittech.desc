@@ -1,0 +1,115 @@
+#
+# This file contains structures that describe the impulse tracker
+# file format
+#
+
+PYTHON it_file.py
+C it_file.c
+
+NAME      impulse_header
+UNSAFE
+ [4] CHAR   IMPM_mark
+ [26] CHAR  SongName            CSAFE
+ UINT16     PHiligt
+ UINT16     OrdNum
+ UINT16     InsNum
+ UINT16     SmpNum
+ UINT16     PatNum
+ UINT16     CwtV
+ UINT16     Cmwt
+ UINT16     Flags
+ UINT16     Special
+ UINT8      GV
+ UINT8      MV
+ UINT8      IS
+ UINT8      IT
+ UINT8      Sep
+ UINT8      PWD
+ UINT16     MsgLgth
+ UINT32     MsgOffs
+ UINT32     Reserved
+ [64] INT8  ChnlPan
+ [64] INT8  ChnlVol
+END       impulse_header
+
+NAME      impulse_instrument
+UNSAFE
+ [4] CHAR    IMPI_mark
+ [13] CHAR   Dos_FileName       CSAFE
+ UINT8       NNA
+ UINT8       DCT
+ UINT8       DCA
+ UINT16      FadeOut
+ UINT8       PPS
+ UINT8       PPC
+ UINT8       GbV
+ UINT8       DfP
+ UINT8       RV
+ UINT8       RP
+ UINT16      TrkVers
+ UINT8       NoS
+ UINT8       reserved
+ [26] CHAR   InstrumentName     CSAFE
+ UINT8       IFC
+ UINT8       IFR
+ UINT8       MCh
+ UINT8       MPr
+ UINT16      MidiBank
+ [240] UINT8 Note_Sample_Table
+ STRUCT envelope VolEnv
+ STRUCT envelope PanEnv
+ STRUCT envelope PitchEnv
+ [7] CHAR    wastedBytes
+END       impulse_instrument
+
+NAME      envelope
+UNSAFE
+ UINT8      Flg
+ UINT8      Num
+ UINT8      LpB
+ UINT8      LpE
+ UINT8      SLB
+ UINT8      SLE
+ [25] UINT8 NodePoints
+ UINT8      reserved
+END       envelope
+
+NAME     impulse_sample
+UNSAFE
+ [4] CHAR       IMPS_mark
+ [13] CHAR      Dos_FileName        CSAFE
+ UINT8          GvL
+ UINT8          Flg
+ UINT8          Vol
+ [26] CHAR      SampleName          CSAFE
+ UINT8          Cvt
+ UINT8          DfP
+ UINT32         Length
+ UINT32         LoopBegin
+ UINT32         LoopEnd
+ UINT32         C5Speed
+ UINT32         SusLoopBegin
+ UINT32         SusLoopEnd
+ UINT32         SamplePointer
+ UINT8          ViS
+ UINT8          ViD
+ UINT8          ViR
+ UINT8          ViT
+END     impulse_sample
+
+NAME    cached_sample
+UNSAFE
+ STRUCT impulse_sample  header
+ UINT32         FileSize
+ UINT16         Date
+ UINT16         Time
+ UINT8          Fmt
+END     cached_sample
+
+NAME    impulse_pattern
+UNSAFE
+ UINT16         Length
+ UINT16         Rows
+ UINT32         reserved
+ # Packet data follows....
+END     impulse_pattern
